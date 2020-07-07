@@ -30,6 +30,10 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
         use: "file-loader"
+      },
+      {
+        test: /\.mp3$/,
+        loader: 'file-loader',
       }
     ]
   },

@@ -2,7 +2,7 @@ import 'phaser';
 import logo from '../../assets/logo.png';
 import greyBox from '../../assets/ui/grey_box.png';
 import blueBox from '../../assets/ui/blue_boxCheckmark.png';
-//import theme from '../../assets/bk_music.mp3';
+import theme from '../../assets/TownTheme.mp3';
 //import background from '../assets/objects/bk-loading.png';
 import blueBtn1 from '../../assets/ui/blue_button02.png';
 import blueBtn2 from '../../assets/ui/blue_button03.png';
@@ -96,7 +96,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('box', greyBox);
     //this.load.image('background-loading', background);
     this.load.image('checkedBox', blueBox);
-    //this.load.audio('bgMusic', [theme]);
+    this.load.audio('bgMusic', [theme]);
   }
 
   create() {
