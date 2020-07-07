@@ -7,6 +7,10 @@ export default class TitleScene extends Phaser.Scene {
     super('Title');
   }
 
+  preload() {
+    this.add.image(400, 300, 'background-loading');
+  }
+
   create () {
     // Game
     this.gameButton = new Button(this, config.width/2, config.height/2 - 100, 'blueButton1', 'blueButton2', 'Play', 'Game');

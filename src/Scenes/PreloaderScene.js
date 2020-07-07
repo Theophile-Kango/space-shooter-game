@@ -21,7 +21,7 @@ export default class PreloaderScene extends Phaser.Scene {
   preload() {
     // add logo image and background
     this.add.image(400, 300, 'background-loading');
-    this.add.image(400, 150, 'logo');
+    this.add.image(400, 150, 'logo').setScale(1/4);
 
     // display progress bar
     const progressBar = this.add.graphics();
@@ -37,7 +37,7 @@ export default class PreloaderScene extends Phaser.Scene {
       text: 'Loading...',
       style: {
         font: '20px monospace',
-        fill: '#1b1b1b',
+        fill: '#fff',
       },
     });
     loadingText.setOrigin(0.5, 0.5);
@@ -48,7 +48,7 @@ export default class PreloaderScene extends Phaser.Scene {
       text: '0%',
       style: {
         font: '18px monospace',
-        fill: '#ffffff',
+        fill: '#fff',
       },
     });
     percentText.setOrigin(0.5, 0.5);
@@ -59,7 +59,7 @@ export default class PreloaderScene extends Phaser.Scene {
       text: '',
       style: {
         font: '18px monospace',
-        fill: '#1b1b1b',
+        fill: '#fff',
       },
     });
     assetText.setOrigin(0.5, 0.5);
