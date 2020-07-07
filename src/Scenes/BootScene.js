@@ -1,12 +1,14 @@
 import 'phaser';
-
+import background from '../../assets/background.png';
+import logo from '../../assets/space-shooter-game.png';
 export default class BootScene extends Phaser.Scene {
   constructor () {
     super('Boot');
   }
 
   preload () {
-    this.load.image('logo', 'assets/space-shooter-game.png');
+    this.load.image('logo', logo);
+    this.load.image('background-loading', background);
   }
 
   create () {

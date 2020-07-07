@@ -3,12 +3,11 @@ import logo from '../../assets/logo.png';
 import greyBox from '../../assets/ui/grey_box.png';
 import blueBox from '../../assets/ui/blue_boxCheckmark.png';
 import theme from '../../assets/TownTheme.mp3';
-//import background from '../assets/objects/bk-loading.png';
+import background from '../../assets/background.png';
 import blueBtn1 from '../../assets/ui/blue_button02.png';
 import blueBtn2 from '../../assets/ui/blue_button03.png';
 
 const name = localStorage.getItem('Name');
-//const name = document.querySelector('.name').value;
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -21,7 +20,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
   preload() {
     // add logo image and background
-    //this.add.image(400, 300, 'background-loading');
+    this.add.image(400, 300, 'background-loading');
     this.add.image(400, 150, 'logo');
 
     // display progress bar
@@ -94,7 +93,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blueButton2', blueBtn2);
     this.load.image('phaserLogo', logo);
     this.load.image('box', greyBox);
-    //this.load.image('background-loading', background);
+    this.load.image('background-loading', background);
     this.load.image('checkedBox', blueBox);
     this.load.audio('bgMusic', [theme]);
   }

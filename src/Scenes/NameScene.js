@@ -1,7 +1,7 @@
 import 'phaser';
 import Button from '../Objects/Button';
 import config from '../Config/config';
-//import background from '../assets/objects/bk-loading.png';
+import background from '../../assets/background.png';
 import blueBtn1 from '../../assets/ui/blue_button02.png';
 import blueBtn2 from '../../assets/ui/blue_button03.png';
 
@@ -13,19 +13,19 @@ class PlayerName extends Phaser.Scene {
     }
 
     preload() {
-        //this.load.image('background-loading', background);
+        this.load.image('background-loading', background);
         this.load.image('blueButton1', blueBtn1);
         this.load.image('blueButton2', blueBtn2);
     }
 
     create() {
         inputField.classList.toggle('closed');
-        //this.add.image(400, 300, 'background-loading');
+        this.add.image(400, 300, 'background-loading');
 
-        this.text = this.add.text(215, 70, 'Welcome!', { fontSize: 40, fill: '#fff' });
-        this.text = this.add.text(215, 120, 'Give your Name', { fontSize: 40, fill: '#fff' });
+        this.text = this.add.text(300, 70, 'Welcome!', { fontSize: 40, fill: '#fff' });
+        this.text = this.add.text(230, 210, 'Give your Name', { fontSize: 40, fill: '#fff' });
         // Next Level
-        this.gameButton = new Button(this, config.width / 2, config.height / 2, 'blueButton1', 'blueButton2', 'Submit', 'Title', inputField);
+        this.gameButton = new Button(this, config.width / 2, config.height - 200, 'blueButton1', 'blueButton2', 'Submit', 'Title', inputField);
         
     }
 }
