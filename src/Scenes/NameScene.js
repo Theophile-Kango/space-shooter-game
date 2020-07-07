@@ -22,10 +22,11 @@ class PlayerName extends Phaser.Scene {
         inputField.classList.toggle('closed');
         //this.add.image(400, 300, 'background-loading');
 
-        this.text = this.add.text(215, 20, 'First time playing?', { fontSize: 40, fill: '#1b1b1b' });
-        this.text = this.add.text(140, 70, 'Write your name in here!', { fontSize: 40, fill: '#1b1b1b' });
+        this.text = this.add.text(215, 70, 'Welcome!', { fontSize: 40, fill: '#fff' });
+        this.text = this.add.text(215, 120, 'Give your Name', { fontSize: 40, fill: '#fff' });
         // Next Level
         this.gameButton = new Button(this, config.width / 2, config.height / 2, 'blueButton1', 'blueButton2', 'Submit', 'Title', inputField);
+        
     }
 }
 

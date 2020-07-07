@@ -10,6 +10,7 @@ import OptionsScene from './Scenes/OptionsScene';
 import CreditsScene from './Scenes/CreditsScene';
 import PlayerName from './Scenes/NameScene';
 import Model from './Model';
+import CheckName from './Scenes/CheckNameScene';
 
 class Game extends Phaser.Game {
   constructor () {
@@ -23,8 +24,9 @@ class Game extends Phaser.Game {
     this.scene.add('Credits', CreditsScene);
     this.scene.add('Game', GameScene);
     this.scene.add('InputName', PlayerName);
+    this.scene.add('CheckName', CheckName);
     this.scene.start('Boot');
   }
 }
-//console.log(Phaser)
+
 window.game = new Game();
