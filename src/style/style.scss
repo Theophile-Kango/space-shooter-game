@@ -3,5 +3,21 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    .name {
+        font-family: 'Roboto Slab', serif;
+        opacity: 1;
+        pointer-events: inherit;
+        text-align: center;
+        position: absolute;
+        top: 33%;
+        font-size: 2rem;
+        border-radius: 10px;
+        border: none;
+    }
+    
+    .name.closed {
+        pointer-events: none;
+        opacity: 0;
+    }
 }
 
