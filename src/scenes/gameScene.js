@@ -1,5 +1,5 @@
 import 'phaser';
-
+import Level1 from './levels/level1';
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super('Game');
@@ -9,12 +9,9 @@ export default class GameScene extends Phaser.Scene {
     const logo = this.add.image(400, 300, 'logo').setScale(1/2);
     this.time.delayedCall(5000, () => {
       logo.destroy();
-      this.create();
+      this.scene.add('level1', Level1);
     }, [], this);
   }
 
-  create () {
-    console.log("hello")
-  }
 
 };

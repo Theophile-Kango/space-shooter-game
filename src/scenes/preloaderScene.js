@@ -2,7 +2,7 @@ import 'phaser';
 import logo from '../../assets/logo.png';
 import greyBox from '../../assets/ui/grey_box.png';
 import blueBox from '../../assets/ui/blue_boxCheckmark.png';
-import theme from '../../assets/TownTheme.mp3';
+import theme from '../../assets/SpaceWalk.ogg';
 import background from '../../assets/background.png';
 import blueBtn1 from '../../assets/ui/blue_button02.png';
 import blueBtn2 from '../../assets/ui/blue_button03.png';
