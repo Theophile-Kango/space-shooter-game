@@ -17,10 +17,10 @@ export default class GameScene extends Phaser.Scene {
     this.time.delayedCall(5000, () => {
     this.logo.destroy();
       this.add.image(400, 300, 'background-loading'); 
-      this.player1 = this.add.sprite(0, 565, 'player').setScale(1/2);
-      this.player1.setOrigin(0,0);
-      //this.player1.setBounce(0.2);
-      //this.player1.setCollideWorldBounds(true);
+      //this.player1 = this.add.sprite(0, 565, 'player').setScale(1/2);
+      this.player1 = this.physics.add.sprite(0, 600, 'player').setScale(1/2);
+      
+      this.player1.setCollideWorldBounds(true);
     }, [], this);
     console.log(this.player1)
  
