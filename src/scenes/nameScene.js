@@ -1,6 +1,6 @@
 import 'phaser';
-import Button from '../Objects/Button';
-import config from '../Config/config';
+import Button from '../objects/button';
+import config from '../config/config';
 import background from '../../assets/background.png';
 import blueBtn1 from '../../assets/ui/blue_button02.png';
 import blueBtn2 from '../../assets/ui/blue_button03.png';
