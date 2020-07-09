@@ -37,9 +37,9 @@ export default class GameScene extends Phaser.Scene {
       this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
       this.levelText = this.add.text(16, 50, `Level: ${this.level}`, { fontSize: '32px', fill: '#fff' });
       this.timerText = this.add.text(600, 16, 'Timer: 0', { fontSize: '32px', fill: '#fff' });
-      this.shot = this.sound.add('shot');
+      this.shot = this.sound.add('shotSound');
       this.hit = this.sound.add('hit');
-      
+
       this.interval = setInterval(() => {
         this.timer += 1;
         this.timerText.setText(`Timer: ${this.timer}`);
@@ -51,7 +51,6 @@ export default class GameScene extends Phaser.Scene {
   {
     if(this.cursors.left.isDown){
       this.player1.x-=this.speed;
-      //console.log(this.player1.x);
     }else if(this.cursors.right.isDown){
       this.player1.x+=this.speed;
     }
@@ -66,11 +65,8 @@ export default class GameScene extends Phaser.Scene {
 
     if(Phaser.Input.Keyboard.JustDown(this.enter)){
       const image = this.physics.add.sprite(this.player1.x, this.player1.y - 30, 'shotImg');
-      //game.physics.enable(image, Phaser.Physics.ARCADE);
       image.body.velocity.y=-1000;
-      //this.shot.play();
+      this.shot.play();
     }
-  }
-
-  
+  }  
 };
