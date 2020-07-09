@@ -3,6 +3,7 @@ import player from '../../assets/player.png';
 import shotImg from '../../assets/shot.png';
 import shotSound from '../../assets/shot.ogg';
 import hit from '../../assets/flak_hit.ogg';
+import background from '../../assets/background.png';
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super('Game');
@@ -11,11 +12,13 @@ export default class GameScene extends Phaser.Scene {
   preload() {
     this.load.image('player', player);
     this.load.image('shotImg', shotImg);
+    this.load.image('background', background);
     this.load.audio('shotSound', shotSound);
     this.load.audio('hit', hit);
   }
 
   create(){
+    this.background = this.add.tileSprite(400, 300, 800, 600, 'background');
     this.logo = this.add.image(400, 300, 'logo').setScale(1/2);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -28,10 +31,12 @@ export default class GameScene extends Phaser.Scene {
     this.level = 1;
     this.shot;
     this.hit;
+    this.gameOver = false;
+    this.background.visible = false;
 
     this.time.delayedCall(5000, () => {
-    this.logo.destroy();
-      this.add.image(400, 300, 'background-loading'); 
+      this.logo.destroy(); 
+      this.background.visible = true;
       this.player1 = this.physics.add.sprite(0, 600, 'player').setScale(1/2);  
       this.player1.setCollideWorldBounds(true);
       this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
@@ -49,6 +54,7 @@ export default class GameScene extends Phaser.Scene {
 
   update () 
   {
+    this.background.tilePositionY -= 1;
     if(this.cursors.left.isDown){
       this.player1.x-=this.speed;
     }else if(this.cursors.right.isDown){
