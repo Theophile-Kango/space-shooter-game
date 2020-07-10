@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import enemies from './enemies';
+import level1 from './levels/level1';
 import player from '../../assets/player.png';
 import shotImg from '../../assets/shot.png';
 import shotSound from '../../assets/shot.ogg';
@@ -62,6 +63,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOver = false;
     this.gameOverText = '';
     this.background.visible = false;
+    this.movements =  [ this.cursors.left, this.cursors.up, this.cursors.right, this.cursors.down]
 
     this.time.delayedCall(5000, () => {
       this.logo.destroy(); 
@@ -77,9 +79,7 @@ export default class GameScene extends Phaser.Scene {
       this.hit = this.sound.add('hit');
 
       this.interval = setInterval(() => {
-        this.timer += 1;
-        this.timerText.setText(`Timer: ${this.timer}`); 
-        this.resetPosition();
+        this.intervalSection();
       }, 1000);
 
     }, [], this);
@@ -114,16 +114,13 @@ export default class GameScene extends Phaser.Scene {
   }
 
   resetPosition(){
-    let resetPosition = Phaser.Math.Between(0, 800);
-    let randomNum = Math.floor(Phaser.Math.Between(0, 8));
-    let meteorKey = this.smallMeteors[randomNum];
-    this.meteor = this.physics.add.sprite(resetPosition, 0, meteorKey);
-    this.meteor.body.velocity.y = 100;
+    level1(this);
     this.physics.add.collider(this.meteor, this.lazer, (meteor, lazer) => {
-      const fire = this.add.image(lazer.x, lazer.y, 'fire');
-      this.hit.play();
+      meteor.body.velocity = -1000;
       meteor.destroy();
       lazer.destroy();
+      const fire = this.add.image(lazer.x, lazer.y, 'fire');
+      this.hit.play();
       this.score += 1;
       this.scoreText.setText(`Score: ${this.score}`);  
       this.time.delayedCall(200, () => fire.destroy() );
@@ -131,15 +128,13 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.collider(this.meteor, this.player1, (meteor, player) => {
       this.hit.play();
+      meteor.destroy();
       this.life -= 1;
+      player.body.velocity.y = 0;
       if(this.life == 0) {
         player.destroy();
         this.add.image(400, 300, 'gameover').setScale(1/2);
         clearInterval(this.interval);
-        this.physics.pause();
-      }else{
-        player.body.velocity.y = 0;
-        meteor.destroy();
       }
       this.lifeText.setText(`Life: ${this.life}`);
     });
@@ -149,18 +144,26 @@ export default class GameScene extends Phaser.Scene {
     if(this.life > 0){
       if(this.clicked){
         this.physics.resume();
+        this.movements.forEach(elt => elt.enabled = true);
+        this.enter.enabled = true;
         this.interval = setInterval(() => {
-          this.timer += 1;
-          this.timerText.setText(`Timer: ${this.timer}`); 
-          this.resetPosition();
+          this.intervalSection();
         }, 1000);
         this.clicked = false;
       }else{
         clearInterval(this.interval);
+        this.enter.enabled = false;
+        this.movements.forEach(elt => elt.enabled = false);
         this.physics.pause();
         this.clicked = true;
       }
     }
+  }
+
+  intervalSection(){
+    this.resetPosition();
+    this.timer += 1;
+    this.timerText.setText(`Timer: ${this.timer}`); 
   }
 
   gameEnd() {
