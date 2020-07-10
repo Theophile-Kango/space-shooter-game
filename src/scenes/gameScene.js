@@ -89,6 +89,7 @@ export default class GameScene extends Phaser.Scene {
     this.clicked;
     this.shot; 
     this.hit;
+    this.count = 0;
     this.gameOver = false;
     this.gameOverText = '';
     this.background.visible = false;
@@ -151,15 +152,29 @@ export default class GameScene extends Phaser.Scene {
     if(this.timer === 60){
       this.increaseLevel();
     }
+    
     this.physics.add.collider(this.meteor, this.lazer, (meteor, lazer) => {
-      meteor.body.velocity = -1000;
-      meteor.destroy();
-      lazer.destroy();
       const fire = this.add.image(lazer.x, lazer.y, 'fire');
-      this.hit.play();
-      this.score += 1;
-      this.scoreText.setText(`Score: ${this.score}`);  
-      this.time.delayedCall(200, () => fire.destroy() );
+      lazer.destroy();
+      if(this.level == 1){
+        meteor.body.velocity.y = -1000;
+        meteor.destroy();
+        this.hit.play();
+        this.score += 1;
+        this.scoreText.setText(`Score: ${this.score}`);  
+        this.time.delayedCall(200, () => fire.destroy());
+      }else{
+        this.count += 1;
+        if(this.count % 3 === 0){
+          meteor.body.velocity.y = -1000;
+          meteor.destroy();
+          this.hit.play();
+          this.score += 1;
+        }else{
+          meteor.body.velocity.y = 100;
+          fire.destroy();
+        }
+      }
     });
 
     this.physics.add.collider(this.meteor, this.player1, (meteor, player) => {
