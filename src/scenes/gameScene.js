@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import level1 from './levels/level1';
+import level2 from './levels/level2';
 import player from '../../assets/player.png';
 import shotImg from '../../assets/shot.png';
 import shotSound from '../../assets/shot.ogg';
@@ -67,6 +68,9 @@ export default class GameScene extends Phaser.Scene {
   create(){
     this.background = this.add.tileSprite(400, 300, 800, 600, 'background');
     this.smallMeteors = ['mbs1','mbs2','mbt1','mbt2','mgs1','mgs2','mgt1','mgt2'];
+    this.bigMeteors = [
+      'mb1','mb2','mb3','mb4','mbb1','mbb3','mgb1','mgb2','mgb3','mgb4','mgm1','mgm2','asteroid'
+    ];
     this.lazer = this.physics.add.group();
     this.logo = this.add.image(400, 300, 'logo').setScale(1/2);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -88,7 +92,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOver = false;
     this.gameOverText = '';
     this.background.visible = false;
-    this.movements =  [ this.cursors.left, this.cursors.up, this.cursors.right, this.cursors.down]
+    this.movements =  [ this.cursors.left, this.cursors.up, this.cursors.right, this.cursors.down];
 
     this.time.delayedCall(5000, () => {
       this.logo.destroy(); 
@@ -98,22 +102,21 @@ export default class GameScene extends Phaser.Scene {
       this.scoreText = this.add.text(16, 16, `Score: ${this.score}`, { fontSize: '16px', fill: '#fff' });
       this.levelText = this.add.text(16, 50, `Level: ${this.level}`, { fontSize: '16px', fill: '#fff' });
       this.timerText = this.add.text(700, 16, 'Timer: 0', { fontSize: '16px', fill: '#fff' });
-      this.lifeText = this.add.text(350, 16, `life: ${this.life}`, { fontSize: '16px', fill: '#fff' });
+      this.lifeText = this.add.text(350, 16, `Life: ${this.life}`, { fontSize: '16px', fill: '#fff' });
       
       this.shot = this.sound.add('shotSound');
       this.hit = this.sound.add('hit');
-
       this.interval = setInterval(() => {
-        this.intervalSection();
-      }, 1000);
-
+         this.intervalSection();
+       }, 1000);
+        
+      
     }, [], this);
   }
 
   update () 
   {
     this.background.tilePositionY -= 1;
-    
     if(this.cursors.left.isDown){
       this.player1.x -= this.speed;
     }else if(this.cursors.right.isDown){
@@ -140,7 +143,14 @@ export default class GameScene extends Phaser.Scene {
   }
 
   resetPosition(){
-    level1(this);
+    if(this.timer < 60){
+      level1(this);
+    }else{
+      level2(this);
+    }
+    if(this.timer === 60){
+      this.increaseLevel();
+    }
     this.physics.add.collider(this.meteor, this.lazer, (meteor, lazer) => {
       meteor.body.velocity = -1000;
       meteor.destroy();
@@ -161,6 +171,7 @@ export default class GameScene extends Phaser.Scene {
         player.destroy();
         this.add.image(400, 300, 'gameover').setScale(1/2);
         clearInterval(this.interval);
+        this.gameEnd();
       }
       this.lifeText.setText(`Life: ${this.life}`);
     });
@@ -192,8 +203,17 @@ export default class GameScene extends Phaser.Scene {
     this.timerText.setText(`Timer: ${this.timer}`); 
   }
 
+  increaseLevel(){
+    this.level += 1;
+    this.life += 2;
+    this.levelText.setText(`Life: ${this.level}`);
+    this.lifeText.setText(`Life: ${this.life}`);
+  }
+
   gameEnd() {
-    this.gameOver = true;
+    this.time.delayedCall(3000, () => {
+      window.location.reload();
+    })
   }
 
 };
