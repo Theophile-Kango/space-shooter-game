@@ -65,10 +65,10 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // update progress bar
     this.load.on('progress', (value) => {
-      percentText.setText(`${Number(value * 100)}%`);
+      percentText.setText(`${Number(Math.floor(value * 100))}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
+      progressBar.fillRect(250, 280, 300 * value, 25);
     });
 
     // update file progress text
@@ -95,9 +95,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('background-loading', background);
     this.load.image('checkedBox', blueBox);
     this.load.audio('bgMusic', [theme]);
-  }
-
-  create() {
   }
 
   ready() {

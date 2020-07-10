@@ -14,8 +14,7 @@ import mgs2 from '../../assets/enemies/meteors/mGS2.png';
 import mgt1 from '../../assets/enemies/meteors/mGT1.png';
 import mgt2 from '../../assets/enemies/meteors/mGT2.png';
 import fire from '../../assets/fire.png';
-
-//let lazer;
+import gameover from '../../assets/gameover.png';
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super('Game');
@@ -34,6 +33,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('mgt2', mgt2);
     this.load.image('fire', fire);
     this.load.image('background', background);
+    this.load.image('gameover', gameover);
     this.load.audio('shotSound', shotSound);
     this.load.audio('hit', hit);
   }
@@ -45,6 +45,7 @@ export default class GameScene extends Phaser.Scene {
     this.logo = this.add.image(400, 300, 'logo').setScale(1/2);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    this.backspace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.scoreText = '';
     this.timerText = '';
     this.levelText = '';
@@ -55,9 +56,11 @@ export default class GameScene extends Phaser.Scene {
     this.life = 3;
     this.speed = 2;
     this.level = 1;
-    this.shot;
+    this.clicked;
+    this.shot; 
     this.hit;
     this.gameOver = false;
+    this.gameOverText = '';
     this.background.visible = false;
 
     this.time.delayedCall(5000, () => {
@@ -69,10 +72,11 @@ export default class GameScene extends Phaser.Scene {
       this.levelText = this.add.text(16, 50, `Level: ${this.level}`, { fontSize: '16px', fill: '#fff' });
       this.timerText = this.add.text(700, 16, 'Timer: 0', { fontSize: '16px', fill: '#fff' });
       this.lifeText = this.add.text(350, 16, `life: ${this.life}`, { fontSize: '16px', fill: '#fff' });
+      
       this.shot = this.sound.add('shotSound');
       this.hit = this.sound.add('hit');
 
-      setInterval(() => {
+      this.interval = setInterval(() => {
         this.timer += 1;
         this.timerText.setText(`Timer: ${this.timer}`); 
         this.resetPosition();
@@ -97,8 +101,12 @@ export default class GameScene extends Phaser.Scene {
         this.player1.y -= this.speed;
       }
     }
+    
+    if(Phaser.Input.Keyboard.JustDown(this.backspace)){ 
+      this.pause();
+    }
 
-    if(Phaser.Input.Keyboard.JustDown(this.enter)){
+    if(Phaser.Input.Keyboard.JustDown(this.enter) ){
       this.shotImg = this.lazer.create(this.player1.x, this.player1.y - 30, 'shotImg');
       this.shotImg.body.velocity.y = -1000;
       this.shot.play();
@@ -121,12 +129,42 @@ export default class GameScene extends Phaser.Scene {
       this.time.delayedCall(200, () => fire.destroy() );
     });
 
-    this.physics.add.collider(this.meteor, this.player1, (meteor) => {
+    this.physics.add.collider(this.meteor, this.player1, (meteor, player) => {
       this.hit.play();
-      meteor.destroy();
       this.life -= 1;
+      if(this.life == 0) {
+        player.destroy();
+        this.add.image(400, 300, 'gameover').setScale(1/2);
+        clearInterval(this.interval);
+        this.physics.pause();
+      }else{
+        player.body.velocity.y = 0;
+        meteor.destroy();
+      }
       this.lifeText.setText(`Life: ${this.life}`);
-    })
-  } 
+    });
+  }
+  
+  pause() {
+    if(this.life > 0){
+      if(this.clicked){
+        this.physics.resume();
+        this.interval = setInterval(() => {
+          this.timer += 1;
+          this.timerText.setText(`Timer: ${this.timer}`); 
+          this.resetPosition();
+        }, 1000);
+        this.clicked = false;
+      }else{
+        clearInterval(this.interval);
+        this.physics.pause();
+        this.clicked = true;
+      }
+    }
+  }
+
+  gameEnd() {
+    this.gameOver = true;
+  }
 
 };
