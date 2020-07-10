@@ -13,9 +13,9 @@ import mgs1 from '../../assets/enemies/meteors/mGS1.png';
 import mgs2 from '../../assets/enemies/meteors/mGS2.png';
 import mgt1 from '../../assets/enemies/meteors/mGT1.png';
 import mgt2 from '../../assets/enemies/meteors/mGT2.png';
+import fire from '../../assets/fire.png';
 
-let lazer;
-
+//let lazer;
 export default class GameScene extends Phaser.Scene {
   constructor () {
     super('Game');
@@ -32,6 +32,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('mgs2', mgs2);
     this.load.image('mgt1', mgt1);
     this.load.image('mgt2', mgt2);
+    this.load.image('fire', fire);
     this.load.image('background', background);
     this.load.audio('shotSound', shotSound);
     this.load.audio('hit', hit);
@@ -40,15 +41,18 @@ export default class GameScene extends Phaser.Scene {
   create(){
     this.background = this.add.tileSprite(400, 300, 800, 600, 'background');
     this.smallMeteors = ['mbs1','mbs2','mbt1','mbt2','mgs1','mgs2','mgt1','mgt2'];
-    lazer = this.physics.add.group();
+    this.lazer = this.physics.add.group();
     this.logo = this.add.image(400, 300, 'logo').setScale(1/2);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     this.scoreText = '';
     this.timerText = '';
     this.levelText = '';
+    this.lifeText = '';
     this.shotImg = '';
     this.timer = 0;
+    this.score = 0;
+    this.life = 3;
     this.speed = 2;
     this.level = 1;
     this.shot;
@@ -61,15 +65,16 @@ export default class GameScene extends Phaser.Scene {
       this.background.visible = true;
       this.player1 = this.physics.add.sprite(400, 300, 'player').setScale(1/2);  
       this.player1.setCollideWorldBounds(true);
-      this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
-      this.levelText = this.add.text(16, 50, `Level: ${this.level}`, { fontSize: '32px', fill: '#fff' });
-      this.timerText = this.add.text(600, 16, 'Timer: 0', { fontSize: '32px', fill: '#fff' });
+      this.scoreText = this.add.text(16, 16, `Score: ${this.score}`, { fontSize: '16px', fill: '#fff' });
+      this.levelText = this.add.text(16, 50, `Level: ${this.level}`, { fontSize: '16px', fill: '#fff' });
+      this.timerText = this.add.text(700, 16, 'Timer: 0', { fontSize: '16px', fill: '#fff' });
+      this.lifeText = this.add.text(350, 16, `life: ${this.life}`, { fontSize: '16px', fill: '#fff' });
       this.shot = this.sound.add('shotSound');
       this.hit = this.sound.add('hit');
 
       setInterval(() => {
         this.timer += 1;
-        this.timerText.setText(`Timer: ${this.timer}`);
+        this.timerText.setText(`Timer: ${this.timer}`); 
         this.resetPosition();
       }, 1000);
 
@@ -94,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if(Phaser.Input.Keyboard.JustDown(this.enter)){
-      this.shotImg = lazer.create(this.player1.x, this.player1.y - 30, 'shotImg');
+      this.shotImg = this.lazer.create(this.player1.x, this.player1.y - 30, 'shotImg');
       this.shotImg.body.velocity.y = -1000;
       this.shot.play();
     }
@@ -106,7 +111,22 @@ export default class GameScene extends Phaser.Scene {
     let meteorKey = this.smallMeteors[randomNum];
     this.meteor = this.physics.add.sprite(resetPosition, 0, meteorKey);
     this.meteor.body.velocity.y = 100;
-    this.physics.add.collider(this.meteor, lazer);
+    this.physics.add.collider(this.meteor, this.lazer, (meteor, lazer) => {
+      const fire = this.add.image(lazer.x, lazer.y, 'fire');
+      this.hit.play();
+      meteor.destroy();
+      lazer.destroy();
+      this.score += 1;
+      this.scoreText.setText(`Score: ${this.score}`);  
+      this.time.delayedCall(200, () => fire.destroy() );
+    });
+
+    this.physics.add.collider(this.meteor, this.player1, (meteor) => {
+      this.hit.play();
+      meteor.destroy();
+      this.life -= 1;
+      this.lifeText.setText(`Life: ${this.life}`);
+    })
   } 
 
 };
