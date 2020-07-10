@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import enemies from './enemies';
 import level1 from './levels/level1';
 import player from '../../assets/player.png';
 import shotImg from '../../assets/shot.png';
@@ -14,6 +13,19 @@ import mgs1 from '../../assets/enemies/meteors/mGS1.png';
 import mgs2 from '../../assets/enemies/meteors/mGS2.png';
 import mgt1 from '../../assets/enemies/meteors/mGT1.png';
 import mgt2 from '../../assets/enemies/meteors/mGT2.png';
+import mb1 from '../../assets/enemies/meteors/mb1.png';
+import mb2 from '../../assets/enemies/meteors/mb2.png';
+import mb3 from '../../assets/enemies/meteors/mb3.png';
+import mb4 from '../../assets/enemies/meteors/mb4.png';
+import mbb1 from '../../assets/enemies/meteors/mbB1.png';
+import mbb3 from '../../assets/enemies/meteors/mbB3.png';
+import mgb1 from '../../assets/enemies/meteors/mGB1.png';
+import mgb2 from '../../assets/enemies/meteors/mGB2.png';
+import mgb3 from '../../assets/enemies/meteors/mGB3.png';
+import mgb4 from '../../assets/enemies/meteors/mGB4.png';
+import mgm1 from '../../assets/enemies/meteors/mGM1.png';
+import mgm2 from '../../assets/enemies/meteors/mGM2.png';
+import asteroid from '../../assets/enemies/astroid.png';
 import fire from '../../assets/fire.png';
 import gameover from '../../assets/gameover.png';
 export default class GameScene extends Phaser.Scene {
@@ -32,6 +44,19 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('mgs2', mgs2);
     this.load.image('mgt1', mgt1);
     this.load.image('mgt2', mgt2);
+    this.load.image('mb1', mb1);
+    this.load.image('mb2', mb2);
+    this.load.image('mb3', mb3);
+    this.load.image('mb4', mb4);
+    this.load.image('mbb1', mbb1);
+    this.load.image('mbb3', mbb3);
+    this.load.image('mgb1', mgb1);
+    this.load.image('mgb2', mgb2);
+    this.load.image('mgb3', mgb3);
+    this.load.image('mgb4', mgb4);
+    this.load.image('mgm1', mgm1);
+    this.load.image('mgm2', mgm2);
+    this.load.image('asteroid', asteroid);
     this.load.image('fire', fire);
     this.load.image('background', background);
     this.load.image('gameover', gameover);
@@ -88,6 +113,7 @@ export default class GameScene extends Phaser.Scene {
   update () 
   {
     this.background.tilePositionY -= 1;
+    
     if(this.cursors.left.isDown){
       this.player1.x -= this.speed;
     }else if(this.cursors.right.isDown){
