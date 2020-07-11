@@ -18,7 +18,6 @@ export default class CheckName extends Phaser.Scene {
     this.load.image('background-loading', background);
     this.load.image('blueButton1', blueBtn1);
     this.load.image('blueButton2', blueBtn2);
-  
   }
 
   create() {

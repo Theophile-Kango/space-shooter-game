@@ -13,7 +13,7 @@ import Model from './model';
 import CheckName from './scenes/checkNameScene';
 
 class Game extends Phaser.Game {
-  constructor () {
+  constructor() {
     super(config);
     const model = new Model();
     this.globals = { model, bgMusic: null };

@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import logo from '../../assets/logo.png';
 import greyBox from '../../assets/ui/grey_box.png';
 import blueBox from '../../assets/ui/blue_boxCheckmark.png';
@@ -21,7 +21,7 @@ export default class PreloaderScene extends Phaser.Scene {
   preload() {
     // add logo image and background
     this.add.image(400, 300, 'background-loading');
-    this.add.image(400, 150, 'logo').setScale(1/4);
+    this.add.image(400, 150, 'logo').setScale(1 / 4);
     // display progress bar
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
