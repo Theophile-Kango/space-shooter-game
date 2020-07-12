@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
-import logo from '../../assets/logo.png';
 import greyBox from '../../assets/ui/grey_box.png';
 import blueBox from '../../assets/ui/blue_boxCheckmark.png';
-import theme from '../../assets/SpaceWalk.ogg';
+import theme from '../../assets/SpaceWalk.mp3';
 import background from '../../assets/background.png';
 import blueBtn1 from '../../assets/ui/blue_button02.png';
 import blueBtn2 from '../../assets/ui/blue_button03.png';
@@ -21,7 +20,6 @@ export default class PreloaderScene extends Phaser.Scene {
   preload() {
     // add logo image and background
     this.add.image(400, 300, 'background-loading');
-    this.add.image(400, 150, 'logo').setScale(1 / 4);
     // display progress bar
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
@@ -90,7 +88,6 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.image('blueButton1', blueBtn1);
     this.load.image('blueButton2', blueBtn2);
-    this.load.image('phaserLogo', logo);
     this.load.image('box', greyBox);
     this.load.image('background-loading', background);
     this.load.image('checkedBox', blueBox);
