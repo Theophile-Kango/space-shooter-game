@@ -11,10 +11,10 @@ export default class LoaderBoardScene extends Phaser.Scene {
 
     getData().then((data) => {
       data.sort((a, b) => b.score - a.score);  
-      this.add.text(190, 20, 'RANK      NAME                SCORE');
-      for (let i = 0; i < 3; i += 1) {
+      this.add.text(195, 20, 'RANK      NAME                SCORE');
+      for (let i = 0; i < 4; i += 1) {
         this.add.text(100, 30 * (i + 1), `
-           ${i + 1}        ${data[i].user}                  ${data[i].score}
+           ${i + 1}        ${data[i].user}                 ${data[i].score}
         `, 
         { fill: '#fff' });
       }
