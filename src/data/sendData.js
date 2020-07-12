@@ -1,7 +1,8 @@
- const fetch = require('node-fetch');
-const sendData = async (user, score) => {
+const fetch = require('node-fetch');
+import 'regenerator-runtime'
+const sendData = async (score, user) => {
   try{
-    const body = JSON.stringify({ user, score });
+    const body = JSON.stringify({ score, user });
     const api = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/1eB7BHo2PUG0MzBK9ZQH/scores/';
     const request = {
       method: 'POST',
@@ -20,5 +21,4 @@ const sendData = async (user, score) => {
   
 };
 
-sendData();
-//export default sendData;
+export default sendData;

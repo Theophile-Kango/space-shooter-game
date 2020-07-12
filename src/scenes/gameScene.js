@@ -30,7 +30,7 @@ import mgm2 from '../../assets/enemies/meteors/mGM2.png';
 import asteroid from '../../assets/enemies/astroid.png';
 import fire from '../../assets/fire.png';
 import gameover from '../../assets/gameover.png';
-
+import sendData from '../data/sendData';
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
@@ -139,9 +139,10 @@ export default class GameScene extends Phaser.Scene {
   resetPosition() {
     if (this.timer < 60) {
       level1(this);
-    } else if((this.timer >= 60) && (this.timer < 120)){
+    }else if((this.timer >= 60) && (this.timer < 120)){
       level2(this);
-    }else{
+      //if((this.timer >= 120) && (this.timer < 180))
+    }else {
       level3(this);
     }
     
@@ -167,6 +168,7 @@ export default class GameScene extends Phaser.Scene {
           this.hit.play();
         } else {
           meteor.body.velocity.y = 100;
+          fire.destroy();
         }
       }
     });
@@ -207,9 +209,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   intervalSection() {
-    this.resetPosition();
     this.timer += 1;
     this.timerText.setText(`Timer: ${this.timer}`);
+    this.resetPosition();
   }
 
   increaseLevel() {
@@ -220,8 +222,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   gameEnd() {
-    this.time.delayedCall(3000, () => {
-      this.scene.start('Options');
-    });
+    const user  = localStorage.getItem('Name');
+    sendData( this.score, user).then(() => { this.scene.start('Title') });
   }
 }
