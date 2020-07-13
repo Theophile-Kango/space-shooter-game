@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import background from '../../assets/background.png';
 import logo from '../../assets/space-shooter-game.png';
 

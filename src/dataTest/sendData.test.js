@@ -6,11 +6,11 @@ describe('Send the score and the user name to the API', () => {
       expect(data.result).toBe('Leaderboard score created correctly.');
       done();
     });
-  })
+  });
   test('Should send an object from the API', (done) => {
     sendData().then(data => {
       expect(typeof data).toBe('object');
       done();
     });
   });
-})
+});

@@ -1,4 +1,5 @@
-export default class Model {
+/* eslint-disable */
+export default class Music {
   constructor() {
     this._soundOn = true;
     this._musicOn = true;

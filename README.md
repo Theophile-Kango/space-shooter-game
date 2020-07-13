@@ -2,11 +2,12 @@
 [![hire-badge](https://img.shields.io/badge/Consult%20/%20Hire%20Theophile-Click%20to%20Contact-brightgreen)](mailto:fadhili.kango@gmail.com) [![Twitter Follow](https://img.shields.io/twitter/follow/Theophadh?label=Follow%20Theophile%20on%20Twitter&style=social)](https://twitter.com/Theophadh)
 
 # Space Shooter Game
-This project is about the implementation of a space shooter game
+
+This project is about the implementation of a space mission where the player's goal is to prevent meteors to reach the earth
 
 # Screenshot
 
-![weather](https://user-images.githubusercontent.com/49276315/86361648-73029a00-bc74-11ea-8530-beb1189a0d36.png)
+![Game Image](assets/game.gif)
 
 ## How to play ?
 
@@ -23,6 +24,12 @@ After a minute another 2 life level are added to the player and he goes to level
 
 The game ends when the player's standard of living is 0.
 
+## Keyboard Control
+
+- `Enter` to shoot
+- `Direction Keys` To move Up, Right, Down, Left
+- `Back Space` To pause and to Play
+
 ## Live Demo
 
 [Click here](https://faster-weather-app.herokuapp.com/?#)
@@ -33,12 +40,14 @@ The game ends when the player's standard of living is 0.
 - cd into the project directory;
 - Run `npm install` to install the necessary modules;
 - Run `npm run dev`, the page will automatically load on localhost:8080.
+- Run `npm run test`, to run the test
 
 ## Built With
 
 - JavaScript
 - Phaser 3
-- NodeJS
+- Webpack
+- Jest
 And deploy to heroku
 
 ### Install
@@ -55,13 +64,16 @@ And deploy to heroku
 
 ## Credits
 
-
+- Template: Richard Davey
+- Images: Kenney.nl
+- Sounds: Stephen M. Cameron
+          Magne Djupvik
 
 ## 🤝  Contributing
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/Theophile-Kango/weather-app/issues)
+Feel free to check the [issues page](https://github.com/Theophile-Kango/space-shooter-game/issues)
 ## Show your support
 
 Give a ⭐️  if you like this project!

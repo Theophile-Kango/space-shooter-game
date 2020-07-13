@@ -28,6 +28,7 @@ import asteroid from '../../assets/enemies/astroid.png';
 import fire from '../../assets/fire.png';
 import gameover from '../../assets/gameover.png';
 import sendData from '../data/sendData';
+
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
@@ -85,9 +86,9 @@ export default class GameScene extends Phaser.Scene {
     this.life = 3;
     this.speed = 2;
     this.level = 1;
-    this.clicked;
-    this.shot;
-    this.hit;
+    this.clicked = '';
+    this.shot = '';
+    this.hit = '';
     this.count = 0;
     this.gameOver = false;
     this.timeSpead = 500;
@@ -137,12 +138,12 @@ export default class GameScene extends Phaser.Scene {
   resetPosition() {
     if (this.timer < 60) {
       this.switchLevel(this.smallMeteors, 100, 1, 500);
-    }else if((this.timer >= 60) && (this.timer < 120)){
-      this.switchLevel(this.bigMeteors, 100, 1/4, 250);
-    }else {
-      this.switchLevel(this.bigMeteors, 100, 1/4, 200);
+    } else if ((this.timer >= 60) && (this.timer < 120)) {
+      this.switchLevel(this.bigMeteors, 100, 1 / 4, 250);
+    } else {
+      this.switchLevel(this.bigMeteors, 100, 1 / 4, 200);
     }
-    
+
     if ((this.timer === 60) || (this.timer === 120)) {
       this.increaseLevel();
     }
@@ -163,7 +164,7 @@ export default class GameScene extends Phaser.Scene {
       meteor.destroy();
       this.life -= 1;
       player.body.velocity.y = 0;
-      if (this.life == 0) {
+      if (this.life === 0) {
         player.destroy();
         this.add.image(400, 300, 'gameover').setScale(1 / 2);
         clearInterval(this.interval);
@@ -177,7 +178,9 @@ export default class GameScene extends Phaser.Scene {
     if (this.life > 0) {
       if (this.clicked) {
         this.physics.resume();
-        this.movements.forEach(elt => elt.enabled = true);
+        this.movements.forEach(elt => {
+          elt.enabled = true;
+        });
         this.enter.enabled = true;
         this.interval = setInterval(() => {
           this.intervalSection();
@@ -186,7 +189,9 @@ export default class GameScene extends Phaser.Scene {
       } else {
         clearInterval(this.interval);
         this.enter.enabled = false;
-        this.movements.forEach(elt => elt.enabled = false);
+        this.movements.forEach(elt => {
+          elt.enabled = false;
+        });
         this.physics.pause();
         this.clicked = true;
       }
@@ -194,7 +199,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   intervalSection() {
-    this.timer += this.timeSpead/1000;
+    this.timer += this.timeSpead / 1000;
     this.timerText.setText(`Timer: ${Math.floor(this.timer)}`);
     this.resetPosition();
   }
@@ -214,7 +219,7 @@ export default class GameScene extends Phaser.Scene {
     this.meteor = this.physics.add.sprite(resetPosition, 0, meteorKey).setScale(scale);
     this.meteor.body.bounce.y = 0.5;
     this.meteor.body.onWorldBounds = true;
-    this.meteor.body.world.on('worldbounds', function(body) {
+    this.meteor.body.world.on('worldbounds', (body) => {
       if (body.gameObject === this) {
         this.setActive(false);
         this.setVisible(false);
@@ -224,7 +229,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   gameEnd() {
-    const user  = localStorage.getItem('Name');
-    sendData( this.score, user).then(() => { this.scene.start('Title') });
+    const user = localStorage.getItem('Name');
+    sendData(this.score, user).then(() => { this.scene.start('Title'); });
   }
 }

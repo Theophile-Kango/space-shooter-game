@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 
 import './style/style.scss';
 import config from './config/config';
