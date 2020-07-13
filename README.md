@@ -32,7 +32,7 @@ The game ends when the player's standard of living is 0.
 
 ## Live Demo
 
-[Click here](https://faster-weather-app.herokuapp.com/?#)
+[Click here](https://space-game-mission.herokuapp.com/)
 
 
 ## Getting Started
