@@ -12,6 +12,7 @@ import PlayerName from './scenes/nameScene';
 import Model from './model';
 import CheckName from './scenes/checkNameScene';
 import LeaderBoardScene from './scenes/leaderBoardScene';
+
 class Game extends Phaser.Game {
   constructor() {
     super(config);

@@ -1,6 +1,7 @@
 import 'phaser';
 import config from '../config/config';
 import Button from '../objects/button';
+
 export default class TitleScene extends Phaser.Scene {
   constructor() {
     super('Title');
@@ -20,7 +21,7 @@ export default class TitleScene extends Phaser.Scene {
     // Credits
     this.creditsButton = new Button(this, config.width / 2, config.height / 2 + 50, 'blueButton1', 'blueButton2', 'Credits', 'Credits');
 
-    //LoaderBoard
+    // LoaderBoard
     this.creditsButton = new Button(this, config.width / 2, config.height / 2 + 150, 'blueButton1', 'blueButton2', 'Players', 'LoaderBoard');
 
     this.model = this.sys.game.globals.model;

@@ -11,11 +11,10 @@ const getData = async () => {
     };
     const request = await fetch(`${api}${key}`, data);
     const response = await request.json();
-    return response.result;
-    
+      return response.result;
   } catch (err) {
-    errorMessage('Give a valid location');
+      return err;
   }
-}
+};
 
 export default getData;

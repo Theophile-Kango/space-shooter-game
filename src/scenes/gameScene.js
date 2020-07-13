@@ -1,7 +1,4 @@
 import Phaser from 'phaser';
-import level1 from './levels/level1';
-import level2 from './levels/level2';
-import level3 from './levels/level3';
 import player from '../../assets/player.png';
 import shotImg from '../../assets/shot.png';
 import shotSound from '../../assets/shot.mp3';
@@ -93,6 +90,7 @@ export default class GameScene extends Phaser.Scene {
     this.hit;
     this.count = 0;
     this.gameOver = false;
+    this.timeSpead = 500;
     this.gameOverText = '';
     this.background.visible = false;
     this.movements = [this.cursors.left, this.cursors.up, this.cursors.right, this.cursors.down];
@@ -109,7 +107,7 @@ export default class GameScene extends Phaser.Scene {
 
       this.shot = this.sound.add('shotSound');
       this.hit = this.sound.add('hit');
-      this.interval = setInterval(() => this.intervalSection(), 500);
+      this.interval = setInterval(() => this.intervalSection(), this.timeSpead);
     }, [], this);
   }
 
@@ -138,12 +136,11 @@ export default class GameScene extends Phaser.Scene {
 
   resetPosition() {
     if (this.timer < 60) {
-      level1(this);
+      this.switchLevel(this.smallMeteors, 100, 1, 500);
     }else if((this.timer >= 60) && (this.timer < 120)){
-      level2(this);
-      //if((this.timer >= 120) && (this.timer < 180))
+      this.switchLevel(this.bigMeteors, 100, 1/4, 250);
     }else {
-      level3(this);
+      this.switchLevel(this.bigMeteors, 100, 1/4, 200);
     }
     
     if ((this.timer === 60) || (this.timer === 120)) {
@@ -154,23 +151,11 @@ export default class GameScene extends Phaser.Scene {
       const fire = this.add.image(lazer.x, lazer.y, 'fire');
       this.time.delayedCall(200, () => fire.destroy());
       lazer.destroy();
+      meteor.body.velocity.y = -1000;
+      meteor.destroy();
+      this.hit.play();
       this.score += 1;
       this.scoreText.setText(`Score: ${this.score}`);
-      if (this.level == 1) {
-        meteor.body.velocity.y = -1000;
-        meteor.destroy();
-        this.hit.play();
-      } else {
-        this.count += 1;
-        if (this.count % 3 === 0) {
-          meteor.body.velocity.y = -1000;
-          meteor.destroy();
-          this.hit.play();
-        } else {
-          meteor.body.velocity.y = 100;
-          fire.destroy();
-        }
-      }
     });
 
     this.physics.add.collider(this.meteor, this.player1, (meteor, player) => {
@@ -209,8 +194,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   intervalSection() {
-    this.timer += 1;
-    this.timerText.setText(`Timer: ${this.timer}`);
+    this.timer += this.timeSpead/1000;
+    this.timerText.setText(`Timer: ${Math.floor(this.timer)}`);
     this.resetPosition();
   }
 
@@ -219,6 +204,23 @@ export default class GameScene extends Phaser.Scene {
     this.life += 2;
     this.levelText.setText(`Level: ${this.level}`);
     this.lifeText.setText(`Life: ${this.life}`);
+  }
+
+  switchLevel(array, velocity, scale, speed) {
+    this.timeSpead = speed;
+    const resetPosition = Phaser.Math.Between(0, 800);
+    const randomNum = Math.floor(Phaser.Math.Between(0, array.length));
+    const meteorKey = array[randomNum];
+    this.meteor = this.physics.add.sprite(resetPosition, 0, meteorKey).setScale(scale);
+    this.meteor.body.bounce.y = 0.5;
+    this.meteor.body.onWorldBounds = true;
+    this.meteor.body.world.on('worldbounds', function(body) {
+      if (body.gameObject === this) {
+        this.setActive(false);
+        this.setVisible(false);
+      }
+    }, this);
+    this.meteor.body.velocity.y = velocity;
   }
 
   gameEnd() {
