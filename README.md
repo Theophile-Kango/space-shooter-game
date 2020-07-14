@@ -33,19 +33,19 @@ The game ends when the player's standard of living is 0.
 When you open the app for the first time you will be redirected here.
 You will be asked to give your name before starting the game.
 
-![welcomepage](https://user-images.githubusercontent.com/49276315/87385155-b4147b80-c59d-11ea-9c02-0ae9c56cf16d.png)
+![welcome](https://user-images.githubusercontent.com/49276315/87422792-8e0ccc80-c5d9-11ea-89d9-7fef041bd771.png)
 
 
 When you open it for the second time you will see the welcome message with your name and the possibility to change your player's name.
 
-![secondLogin](https://user-images.githubusercontent.com/49276315/87385281-fd64cb00-c59d-11ea-9baa-9c44d7d85a47.png)
+![wecome2](https://user-images.githubusercontent.com/49276315/87422833-9d8c1580-c5d9-11ea-9a93-050e7033db89.png)
 
 
 If you click on the Play Button, you will be redirected to the menu
 
 ### Menu
 
-![menu](https://user-images.githubusercontent.com/49276315/87385372-2e450000-c59e-11ea-9bce-5b209c2b29b6.png)
+![menu](https://user-images.githubusercontent.com/49276315/87422885-bac0e400-c5d9-11ea-8cd9-26e1b8bc94d0.png))
 
 Here we have 4 Options
 
@@ -57,7 +57,7 @@ Here we have 4 Options
 
 ## Keyboard Control
 
-![playGame](https://user-images.githubusercontent.com/49276315/87386434-c3e18f00-c5a0-11ea-95d0-db163f63924a.png)
+![play (1)](https://user-images.githubusercontent.com/49276315/87422913-c4e2e280-c5d9-11ea-93f8-6d44b9ba9b26.png)
 
 
 - `Space` to shoot

@@ -123,18 +123,18 @@ export default class GameScene extends Phaser.Scene {
     } else if (this.cursors.up.isDown) {
       this.player1.y -= this.speed;
     }
-    if ((this.cursors.left.isDown)&&(this.cursors.up.isDown)){
-      this.player1.x -= this.speed/2;
-      this.player1.y -= this.speed/2;
-    }else if((this.cursors.left.isDown)&&(this.cursors.down.isDown)){
-      this.player1.x -= this.speed/2;
-      this.player1.y += this.speed/2;
-    }else if((this.cursors.right.isDown)&&(this.cursors.down.isDown)){
-      this.player1.x += this.speed/2;
-      this.player1.y += this.speed/2;
-    }if ((this.cursors.right.isDown)&&(this.cursors.up.isDown)){
-      this.player1.x += this.speed/2;
-      this.player1.y -= this.speed/2;
+    if ((this.cursors.left.isDown) && (this.cursors.up.isDown)) {
+      this.player1.x -= this.speed / 2;
+      this.player1.y -= this.speed / 2;
+    } else if ((this.cursors.left.isDown) && (this.cursors.down.isDown)) {
+      this.player1.x -= this.speed / 2;
+      this.player1.y += this.speed / 2;
+    } else if ((this.cursors.right.isDown) && (this.cursors.down.isDown)) {
+      this.player1.x += this.speed / 2;
+      this.player1.y += this.speed / 2;
+    } if ((this.cursors.right.isDown) && (this.cursors.up.isDown)) {
+      this.player1.x += this.speed / 2;
+      this.player1.y -= this.speed / 2;
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.space)) {
