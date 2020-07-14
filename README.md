@@ -5,7 +5,7 @@
 
 This project is about the implementation of a space mission where the player's goal is to prevent meteors to reach the earth
 
-# Screenshot
+# Demo
 
 ![game](https://user-images.githubusercontent.com/49276315/87385076-8e877200-c59d-11ea-9ed2-376d8532a3a2.gif)
 
