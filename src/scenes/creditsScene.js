@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Phaser from 'phaser';
 import config from '../config/config';
 
@@ -38,23 +39,23 @@ export default class CreditsScene extends Phaser.Scene {
       targets: this.creditsText,
       y: -100,
       ease: 'Power1',
-      duration: 6000,
+      duration: 3000,
       delay: 1000,
-      onComplete() {
-        this.destroy();
-      },
+      onComplete: function () {
+        this.destroy;
+      }
     });
 
     this.madeByTween = this.tweens.add({
       targets: this.madeByText,
       y: -300,
       ease: 'Power1',
-      duration: 15000,
+      duration: 8000,
       delay: 1000,
-      onComplete() {
-        this.madeByTween.destroy();
+      onComplete: function () {
+        this.madeByTween.destroy;
         this.scene.start('Title');
-      },
+      }.bind(this)
     });
   }
-}
+};
