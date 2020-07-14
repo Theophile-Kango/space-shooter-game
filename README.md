@@ -17,9 +17,10 @@ Before starting the game, the player must fill in a name field and at the end of
 The game begins with an airplane in full space, and the mission is to prevent the meteors from reaching the earth by shooting at them.
 The player's score increases when he destroys a meteor.
 
-The player has 3 life levels at the start, when the plane crosses with a meteor, the player's score decreases.
+The player has 3 life levels at the start.
+When the plane crosses with a meteor, the player's score decreases.
 
-After one minute of play 2 level of life are added to the player and he leaves from level 1 to level 2 where there are more meteors and they come at a high speed than at level 1
+After one minute of play, 2 level of life are added to the player and he leaves from level 1 to level 2 where there are more meteors and they come at a high speed than at level 1
 
 After a minute another 2 life level are added to the player and he goes to level 3 where the meteors come at a higher speed than at level 1 and 2.
 
@@ -59,9 +60,10 @@ Here we have 4 Options
 ![playGame](https://user-images.githubusercontent.com/49276315/87386434-c3e18f00-c5a0-11ea-95d0-db163f63924a.png)
 
 
-- `Enter` to shoot
-- `Direction Keys` To move Up, Right, Down, Left
-- `Space` To Pause and Play the game
+- `Space` to shoot
+- `Direction Keys` To move Up, Right, Down and Left 
+- `Direction Keys` To move diagonally, eg: Up and right to move in the up-right direction
+- `Pause` To Pause and Play the game
 
 ## Live Demo
 
