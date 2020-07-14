@@ -61,7 +61,7 @@ Here we have 4 Options
 
 - `Enter` to shoot
 - `Direction Keys` To move Up, Right, Down, Left
-- `Space` To Pause and to Play
+- `Space` To Pause and Play the game
 
 ## Live Demo
 

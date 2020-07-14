@@ -74,8 +74,8 @@ export default class GameScene extends Phaser.Scene {
     this.lazer = this.physics.add.group();
     this.logo = this.add.image(400, 300, 'logo').setScale(1 / 2);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    this.backspace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.pauseGame = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PAUSE);
+    this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.scoreText = '';
     this.timerText = '';
     this.levelText = '';
@@ -84,7 +84,7 @@ export default class GameScene extends Phaser.Scene {
     this.timer = 0;
     this.score = 0;
     this.life = 3;
-    this.speed = 2;
+    this.speed = 0;
     this.level = 1;
     this.clicked = '';
     this.shot = '';
@@ -123,25 +123,38 @@ export default class GameScene extends Phaser.Scene {
     } else if (this.cursors.up.isDown) {
       this.player1.y -= this.speed;
     }
-
-    if (Phaser.Input.Keyboard.JustDown(this.backspace)) {
-      this.pause();
+    if ((this.cursors.left.isDown)&&(this.cursors.up.isDown)){
+      this.player1.x -= this.speed/2;
+      this.player1.y -= this.speed/2;
+    }else if((this.cursors.left.isDown)&&(this.cursors.down.isDown)){
+      this.player1.x -= this.speed/2;
+      this.player1.y += this.speed/2;
+    }else if((this.cursors.right.isDown)&&(this.cursors.down.isDown)){
+      this.player1.x += this.speed/2;
+      this.player1.y += this.speed/2;
+    }if ((this.cursors.right.isDown)&&(this.cursors.up.isDown)){
+      this.player1.x += this.speed/2;
+      this.player1.y -= this.speed/2;
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.enter)) {
+    if (Phaser.Input.Keyboard.JustDown(this.space)) {
       this.shotImg = this.lazer.create(this.player1.x, this.player1.y - 30, 'shotImg');
       this.shotImg.body.velocity.y = -1000;
       this.shot.play();
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.pauseGame)) {
+      this.pause();
     }
   }
 
   resetPosition() {
     if (this.timer < 60) {
-      this.switchLevel(this.smallMeteors, 100, 1, 500);
+      this.switchLevel(this.smallMeteors, 100, 1, 500, 2);
     } else if ((this.timer >= 60) && (this.timer < 120)) {
-      this.switchLevel(this.bigMeteors, 100, 1 / 4, 250);
+      this.switchLevel(this.bigMeteors, 150, 1 / 4, 250, 3);
     } else {
-      this.switchLevel(this.bigMeteors, 100, 1 / 4, 200);
+      this.switchLevel(this.bigMeteors, 200, 1 / 4, 200, 4);
     }
 
     if ((this.timer === 60) || (this.timer === 120)) {
@@ -181,14 +194,14 @@ export default class GameScene extends Phaser.Scene {
         this.movements.forEach(elt => {
           elt.enabled = true;
         });
-        this.enter.enabled = true;
+        this.space.enabled = true;
         this.interval = setInterval(() => {
           this.intervalSection();
         }, 1000);
         this.clicked = false;
       } else {
         clearInterval(this.interval);
-        this.enter.enabled = false;
+        this.space.enabled = false;
         this.movements.forEach(elt => {
           elt.enabled = false;
         });
@@ -211,8 +224,9 @@ export default class GameScene extends Phaser.Scene {
     this.lifeText.setText(`Life: ${this.life}`);
   }
 
-  switchLevel(array, velocity, scale, speed) {
+  switchLevel(array, velocity, scale, speed, keySpead) {
     this.timeSpead = speed;
+    this.speed = keySpead;
     const resetPosition = Phaser.Math.Between(0, 800);
     const randomNum = Math.floor(Phaser.Math.Between(0, array.length));
     const meteorKey = array[randomNum];
@@ -230,6 +244,7 @@ export default class GameScene extends Phaser.Scene {
 
   gameEnd() {
     const user = localStorage.getItem('Name');
+    this.space.enabled = false;
     sendData(this.score, user).then(() => { this.scene.start('Title'); });
   }
 }
