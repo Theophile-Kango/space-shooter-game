@@ -14,7 +14,7 @@ This project is about the implementation of a space mission where the player's g
 
 Before starting the game, the player must fill in a name field and at the end of the game he can see if his score is among the top 10 players by clicking on the players button.
 
-The game begins with an airplane in full space, and the mission is to prevent the meteors from reaching the earth by shooting at them.
+The game begins with an aeroplane in full space, and the mission is to prevent the meteors from reaching the earth by shooting at them.
 The player's score increases when he destroys a meteor.
 
 The player has 3 life levels at the start.
