@@ -67,7 +67,7 @@ Here we have 4 Options
 
 ## Live Demo
 
-[Click here](https://space-game-mission.herokuapp.com/)
+[Click here](https://space-game-mission.netlify.app/)
 
 
 ## Getting Started
